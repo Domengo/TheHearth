@@ -1,0 +1,49 @@
+{
+  "name": "Expo React Native Widescreen Workspace",
+  "image": "://microsoft.com",
+  
+  // Custom workspace setting properties for VS Code inside the cloud container
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "expo.vscode-expo-tools",
+        "amiralis.unistyles-extension"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "tailwindCSS.experimental.classRegex": [
+          ["className=\"([^\"]*)\"", "([a-zA-Z0-9\\s_-:]+)"]
+        ]
+      }
+    }
+  },
+
+  // Expose the network ports required for Metro Bundler and network debugger tunnels
+  "forwardPorts": [8081, 19000, 19001, 19002],
+
+  // Override ports visibility so local development devices can scan the cloud server
+  "portsAttributes": {
+    "8081": {
+      "label": "Metro Bundler Server",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    }
+  },
+
+  // Install developer command tools automatically right after the platform boots up
+  "postCreateCommand": "npm install -g eas-cli expo-cli && npm install",
+
+  // Ensures your workspace runs smoothly with enough privileges to build dependencies
+  "remoteUser": "node",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:1": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {}
+  }
+}
