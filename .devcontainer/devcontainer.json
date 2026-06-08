@@ -1,6 +1,6 @@
 {
   "name": "Expo React Native Widescreen Workspace",
-  "image": "://microsoft.com",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
   
   "customizations": {
     "vscode": {
@@ -21,7 +21,7 @@
     }
   },
 
-  "forwardPorts": [8081],
+  "forwardPorts": [8081, 22],
 
   "portsAttributes": {
     "8081": {
@@ -37,6 +37,7 @@
     "ghcr.io/devcontainers/features/common-utils:1": {
       "installZsh": true,
       "configureZshAsDefaultShell": true
-    }
+    },
+    "ghcr.io/devcontainers/features/sshd:1": {}
   }
 }
