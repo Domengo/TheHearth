@@ -1,2 +1,12 @@
 @import 'tailwindcss';
 @import 'uniwind';
+
+
+@theme {
+  /* Establish base widescreen custom CSS custom properties */
+  --color-tv-bg: var(--bg);
+  --color-tv-surface: var(--surface);
+  --color-tv-text: var(--text);
+  --color-tv-muted: var(--muted);
+  --color-tv-focus: var(--focus);
+}

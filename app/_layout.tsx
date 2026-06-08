@@ -1,59 +1,24 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import React from 'react';
+import { Slot } from 'expo-router';
+import { View } from 'react-native';
+import '../global.css';
 
-import { useColorScheme } from '@/components/useColorScheme';
+// Active configuration state modifier token
+// Switch this value to: 'hearth' | 'canineCalm' | 'twilight' to shift theme structures instantly
+const ACTIVE_APP_PROFILE: 'hearth' | 'canineCalm' | 'twilight' = 'hearth';
 
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+const THEME_STYLES = {
+  hearth: { '--bg': '#09080D', '--surface': '#1A181F', '--text': '#FDFBF7', '--muted': '#8C8276', '--focus': '#D97A22' },
+  canineCalm: { '--bg': '#0A1128', '--surface': '#1C2D5A', '--text': '#F4F7FF', '--muted': '#7A93CB', '--focus': '#FFD700' },
+  twilight: { '--bg': '#09080D', '--surface': 'rgba(255, 255, 255, 0.04)', '--text': '#F2F0FF', '--muted': '#8A869E', '--focus': '#5C4DFF' },
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
 export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const inlineThemeVars = THEME_STYLES[ACTIVE_APP_PROFILE] as any;
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <View style={inlineThemeVars} className="flex-1 bg-tv-bg">
+      <Slot />
+    </View>
   );
 }
